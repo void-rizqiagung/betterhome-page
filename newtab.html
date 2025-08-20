@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Tab</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Poppins for a softer, cuter feel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* A dreamy, animated aurora gradient background */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(-45deg, #f8b195, #f67280, #c06c84, #6c5b7b, #355c7d);
+            background-size: 400% 400%;
+            animation: gradientAnimation 20s ease infinite;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Custom glowing shadow for the main container */
+        .main-container {
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), 0 0 20px 5px rgba(246, 114, 128, 0.2);
+        }
+        
+        /* Custom focus ring for the search bar */
+        #search-input:focus {
+            box-shadow: 0 0 0 3px rgba(252, 128, 142, 0.5);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center text-white p-4">
+
+    <!-- Main container with a soft glassmorphism effect -->
+    <main class="main-container w-full max-w-2xl text-center p-6 sm:p-8 bg-black/25 rounded-[2.5rem] border border-white/20 backdrop-blur-xl">
+        
+        <!-- Time and Date Display -->
+        <div class="mb-8">
+            <h1 id="time" class="text-6xl sm:text-7xl font-bold tracking-tighter">12:00</h1>
+            <p id="date" class="text-base sm:text-lg opacity-70">Monday, 1 January</p>
+        </div>
+
+        <!-- Google Search Form -->
+        <form id="search-form" action="https://www.google.com/search" method="get" class="mb-10">
+            <input id="search-input" type="text" name="q" placeholder="Search for something beautiful..." autocomplete="off"
+                   class="w-full px-6 py-4 text-lg bg-white/10 rounded-full border-none outline-none placeholder:text-white/60 transition-all duration-300 focus:bg-white/20">
+        </form>
+
+        <!-- Shortcuts Section -->
+        <div class="grid grid-cols-3 gap-4 sm:gap-6">
+            
+            <!-- Google Shortcut -->
+            <a href="https://www.google.com" class="group flex flex-col items-center gap-3 transition-transform duration-300 ease-out hover:scale-110">
+                <div class="w-20 h-20 flex items-center justify-center transition-all duration-300 ease-out group-hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+                    <!-- High-Coloring Google SVG -->
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="google-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#F9C2ED" />
+                                <stop offset="100%" style="stop-color:#A3C4F3" />
+                            </linearGradient>
+                            <filter id="glow-google">
+                                <feGaussianBlur stdDeviation="3.5" result="coloredBlur"/>
+                                <feMerge>
+                                    <feMergeNode in="coloredBlur"/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                            </filter>
+                        </defs>
+                        <g filter="url(#glow-google)">
+                            <path fill="url(#google-grad)" d="M85.1,43.1H51.4v10.8h19c-1.3,7-5.9,11.8-12.2,11.8c-7.3,0-13.2-6-13.2-13.3s5.9-13.3,13.2-13.3 c3.9,0,6.8,1.7,8.4,3.2l7.5-7.5C69.3,17.7,61,15,51.4,15C34.3,15,20,29.3,20,46.4s14.3,31.4,31.4,31.4 c18.1,0,30.1-12.8,30.1-30.8C81.5,45.8,85.1,43.1,85.1,43.1z"/>
+                        </g>
+                    </svg>
+                </div>
+                <span class="font-medium opacity-70 group-hover:opacity-100 transition-opacity">Google</span>
+            </a>
+            
+            <!-- Gemini Shortcut -->
+            <a href="https://gemini.google.com/" class="group flex flex-col items-center gap-3 transition-transform duration-300 ease-out hover:scale-110">
+                <div class="w-20 h-20 flex items-center justify-center transition-all duration-300 ease-out group-hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]">
+                    <!-- High-Coloring Gemini SVG -->
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <radialGradient id="gemini-grad" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                                <stop offset="0%" style="stop-color:#FFDDE1" />
+                                <stop offset="100%" style="stop-color:#EE9CA7" />
+                            </radialGradient>
+                            <filter id="glow-gemini">
+                                <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                                <feMerge>
+                                    <feMergeNode in="coloredBlur"/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                            </filter>
+                        </defs>
+                        <g filter="url(#glow-gemini)">
+                           <path fill="url(#gemini-grad)" d="M50 5 L61.2 35.8 L95 38.8 L69.5 60.2 L77.6 91 L50 72.5 L22.4 91 L30.5 60.2 L5 38.8 L38.8 35.8Z" />
+                           <path fill="white" d="M50 25 L55.6 42.9 L75 44.4 L58.7 56.1 L63.8 74 L50 63.2 L36.2 74 L41.3 56.1 L25 44.4 L44.4 42.9Z" />
+                        </g>
+                    </svg>
+                </div>
+                <span class="font-medium opacity-70 group-hover:opacity-100 transition-opacity">Gemini</span>
+            </a>
+
+            <!-- AI Studio Shortcut -->
+            <a href="https://aistudio.google.com/" class="group flex flex-col items-center gap-3 transition-transform duration-300 ease-out hover:scale-110">
+                <div class="w-20 h-20 flex items-center justify-center transition-all duration-300 ease-out group-hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+                    <!-- High-Coloring AI Studio SVG -->
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="studio-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#84fab0" />
+                                <stop offset="100%" style="stop-color:#8fd3f4" />
+                            </linearGradient>
+                            <filter id="glow-studio">
+                                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                                <feMerge>
+                                    <feMergeNode in="coloredBlur"/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                            </feMerge>
+                        </defs>
+                        <g filter="url(#glow-studio)">
+                            <path d="M35,20 L15,50 L35,80" stroke="url(#studio-grad)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                            <path d="M65,20 L85,50 L65,80" stroke="url(#studio-grad)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        </g>
+                    </svg>
+                </div>
+                <span class="font-medium opacity-70 group-hover:opacity-100 transition-opacity">AI Studio</span>
+            </a>
+        </div>
+    </main>
+
+    <script>
+        // Function to update time and date
+        function updateTime() {
+            const now = new Date();
+            const timeEl = document.getElementById('time');
+            const dateEl = document.getElementById('date');
+
+            // Format time (HH:MM)
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            timeEl.textContent = `${hours}:${minutes}`;
+
+            // Format date
+            const options = { weekday: 'long', day: 'numeric', month: 'long' };
+            dateEl.textContent = now.toLocaleDateString('id-ID', options);
+        }
+
+        // Update the time every second
+        setInterval(updateTime, 1000);
+
+        // Initial call to display time immediately
+        updateTime();
+        
+        // Focus on search input on load
+        document.getElementById('search-input').focus();
+    </script>
+</body>
+</html>
