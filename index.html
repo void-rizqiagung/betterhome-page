@@ -1,170 +1,192 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Tab</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Poppins for a softer, cuter feel -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        /* A dreamy, animated aurora gradient background */
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(-45deg, #f8b195, #f67280, #c06c84, #6c5b7b, #355c7d);
-            background-size: 400% 400%;
-            animation: gradientAnimation 20s ease infinite;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="BetterHome — New Tab untuk Chrome: cute, classy, dan power dashboard dalam satu." />
+  <title>BetterHome — New Tab</title>
+  <!-- Critical CSS (inline) untuk LCP cepat. Tailwind tidak dipakai di produksi New Tab untuk ukuran kecil. -->
+  <style>
+    :root{
+      --bg1: linear-gradient(135deg,#fff0f6 0%, #fff7fb 35%, #f3f0ff 100%);
+      --glass: rgba(255,255,255,0.6);
+      --card: #ffffff;
+      --muted:#6b7280;
+      --accent:#ff6fa3;--accent2:#7c5cff;
+      --radius:18px;--maxW:1100px;--shadow:0 10px 30px rgba(15,23,42,0.08);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;font-family:Inter, Poppins, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:var(--bg1);-webkit-font-smoothing:antialiased;color:#0f172a;
+    }
+    .wrap{max-width:var(--maxW);margin:28px auto;padding:20px}
+    .newtab{display:flex;gap:22px;align-items:flex-start}
+    /* Left: utama (waktu, search, shortcuts) */
+    .main{flex:1;min-width:320px}
+    .card{background:var(--card);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);border:1px solid rgba(15,23,42,0.04)}
 
-        @keyframes gradientAnimation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        
-        /* Custom glowing shadow for the main container */
-        .main-container {
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), 0 0 20px 5px rgba(246, 114, 128, 0.2);
-        }
-        
-        /* Custom focus ring for the search bar */
-        #search-input:focus {
-            box-shadow: 0 0 0 3px rgba(252, 128, 142, 0.5);
-        }
-    </style>
+    /* Time & date */
+    .time{font-weight:700;font-size:clamp(32px,6vw,64px);line-height:0.95;margin:0}
+    .date{color:var(--muted);margin-top:6px}
+
+    /* Search */
+    .search-row{display:flex;gap:10px;margin-top:14px}
+    .search-wrap{flex:1;display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,0.9),rgba(250,246,255,0.95));border:1px solid rgba(15,23,42,0.03)}
+    .search-input{flex:1;border:0;background:transparent;padding:8px;font-size:16px;outline:none}
+    .engine-select{width:44px;height:44px;border-radius:10px;border:0;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;cursor:pointer}
+
+    /* Shortcuts grid: responsive */
+    .shortcuts{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+    .tile{display:flex;flex-direction:column;align-items:center;gap:8px;padding:12px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.98),#fff);cursor:pointer;transition:transform .18s ease, box-shadow .18s ease}
+    .tile:hover{transform:translateY(-6px);box-shadow:0 12px 28px rgba(15,23,42,0.08)}
+    .tile svg{width:56px;height:56px}
+    .tile .label{font-weight:600;color:#111827;font-size:0.95rem}
+
+    /* Right: widgets (minimal glass or power dashboard) */
+    .side{width:360px;min-width:260px;display:flex;flex-direction:column;gap:12px}
+    .widget{padding:12px;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,0.7),rgba(255,255,255,0.85));backdrop-filter: blur(6px);border:1px solid rgba(15,23,42,0.04)}
+    .widget h4{margin:0 0 8px}
+
+    /* Controls */
+    .controls{display:flex;gap:8px;align-items:center;margin-top:12px}
+    .btn{padding:8px 12px;border-radius:10px;border:0;background:#fff;font-weight:600;cursor:pointer}
+    .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent2));color:white}
+
+    footer{margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
+
+    @media (max-width:980px){.newtab{flex-direction:column}.side{width:100%}}
+    @media (max-width:680px){.shortcuts{grid-template-columns:repeat(3,1fr)}.tile svg{width:48px;height:48px}}
+    @media (prefers-reduced-motion: reduce){*{transition:none!important}}
+  </style>
 </head>
-<body class="min-h-screen flex items-center justify-center text-white p-4">
+<body>
+  <div class="wrap">
+    <div class="newtab">
+      <main class="main">
+        <div class="card" id="hero">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+            <div>
+              <h1 id="time" class="time">00:00</h1>
+              <div id="date" class="date">Senin, 1 Januari</div>
+            </div>
+            <!-- logo SVG high-colour diffusion -->
+            <div aria-hidden="true" style="width:76px;height:76px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(135deg,#fff0f6 0%,#ffe7fb 40%,#e9e0ff 100%);box-shadow:0 10px 30px rgba(124,92,255,0.12)">
+              <svg viewBox="0 0 120 120" width="64" height="64" role="img" aria-label="BetterHome logo">
+                <defs>
+                  <linearGradient id="lgA" x1="0" x2="1"><stop offset="0" stop-color="#ff93b6"/><stop offset="1" stop-color="#7c5cff"/></linearGradient>
+                  <radialGradient id="rgB" cx="30%" cy="20%" r="80%"><stop offset="0" stop-color="#fff0f6" stop-opacity="0.95"/><stop offset="1" stop-color="#ff93b6" stop-opacity="0.15"/></radialGradient>
+                  <filter id="glo"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                </defs>
+                <g filter="url(#glo)">
+                  <rect x="8" y="28" width="104" height="66" rx="14" fill="url(#rgB)" stroke="url(#lgA)" stroke-width="2"/>
+                </g>
+                <path d="M18 44 L60 20 L102 44" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.98"/>
+                <g transform="translate(60,58)">
+                  <path d="M0 -6 c3 -6 10 -6 14 0 c4 6 0 12 -7 16 c-7 -4 -11 -10 -7 -16" fill="#fff" opacity="0.95"/>
+                </g>
+                <g transform="translate(92,22)" opacity="0.95">
+                  <circle cx="0" cy="0" r="4" fill="#fff"/>
+                </g>
+              </svg>
+            </div>
+          </div>
 
-    <!-- Main container with a soft glassmorphism effect -->
-    <main class="main-container w-full max-w-2xl text-center p-6 sm:p-8 bg-black/25 rounded-[2.5rem] border border-white/20 backdrop-blur-xl">
-        
-        <!-- Time and Date Display -->
-        <div class="mb-8">
-            <h1 id="time" class="text-6xl sm:text-7xl font-bold tracking-tighter">12:00</h1>
-            <p id="date" class="text-base sm:text-lg opacity-70">Monday, 1 January</p>
+          <div class="search-row" role="search" aria-label="Cari">
+            <button id="engine-btn" class="engine-select" title="Pilih mesin pencari" aria-haspopup="true" aria-expanded="false">
+              <!-- engine icon (will update) -->
+              <svg id="engine-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                <defs>
+                  <linearGradient id="engGrad" x1="0" x2="1"><stop offset="0" stop-color="#ffd6e8"/><stop offset="1" stop-color="#c7b3ff"/></linearGradient>
+                </defs>
+                <rect x="2" y="2" width="20" height="20" rx="5" fill="url(#engGrad)"/>
+              </svg>
+            </button>
+
+            <div class="search-wrap">
+              <input id="search-input" class="search-input" type="search" placeholder="Search or type a URL" aria-label="Search" />
+              <button id="search-go" class="btn primary" aria-label="Search sekarang">Search</button>
+            </div>
+
+            <button id="theme-toggle" class="btn" title="Toggle theme">Tema</button>
+          </div>
+
+          <div class="controls">
+            <button id="add-shortcut" class="btn">Tambah Shortcut</button>
+            <button id="edit-shortcuts" class="btn">Edit</button>
+            <div style="flex:1"></div>
+            <button id="reset-defaults" class="btn">Reset</button>
+          </div>
+
+          <div class="shortcuts" id="shortcuts" aria-live="polite">
+            <!-- tiles inserted by JS -->
+          </div>
         </div>
 
-        <!-- Google Search Form -->
-        <form id="search-form" action="https://www.google.com/search" method="get" class="mb-10">
-            <input id="search-input" type="text" name="q" placeholder="Search for something beautiful..." autocomplete="off"
-                   class="w-full px-6 py-4 text-lg bg-white/10 rounded-full border-none outline-none placeholder:text-white/60 transition-all duration-300 focus:bg-white/20">
-        </form>
-
-        <!-- Shortcuts Section -->
-        <div class="grid grid-cols-3 gap-4 sm:gap-6">
-            
-            <!-- Google Shortcut -->
-            <a href="https://www.google.com" class="group flex flex-col items-center gap-3 transition-transform duration-300 ease-out hover:scale-110">
-                <div class="w-20 h-20 flex items-center justify-center transition-all duration-300 ease-out group-hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
-                    <!-- High-Coloring Google SVG -->
-                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <linearGradient id="google-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:#F9C2ED" />
-                                <stop offset="100%" style="stop-color:#A3C4F3" />
-                            </linearGradient>
-                            <filter id="glow-google">
-                                <feGaussianBlur stdDeviation="3.5" result="coloredBlur"/>
-                                <feMerge>
-                                    <feMergeNode in="coloredBlur"/>
-                                    <feMergeNode in="SourceGraphic"/>
-                                </feMerge>
-                            </filter>
-                        </defs>
-                        <g filter="url(#glow-google)">
-                            <path fill="url(#google-grad)" d="M85.1,43.1H51.4v10.8h19c-1.3,7-5.9,11.8-12.2,11.8c-7.3,0-13.2-6-13.2-13.3s5.9-13.3,13.2-13.3 c3.9,0,6.8,1.7,8.4,3.2l7.5-7.5C69.3,17.7,61,15,51.4,15C34.3,15,20,29.3,20,46.4s14.3,31.4,31.4,31.4 c18.1,0,30.1-12.8,30.1-30.8C81.5,45.8,85.1,43.1,85.1,43.1z"/>
-                        </g>
-                    </svg>
-                </div>
-                <span class="font-medium opacity-70 group-hover:opacity-100 transition-opacity">Google</span>
-            </a>
-            
-            <!-- Gemini Shortcut -->
-            <a href="https://gemini.google.com/" class="group flex flex-col items-center gap-3 transition-transform duration-300 ease-out hover:scale-110">
-                <div class="w-20 h-20 flex items-center justify-center transition-all duration-300 ease-out group-hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]">
-                    <!-- High-Coloring Gemini SVG -->
-                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <radialGradient id="gemini-grad" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-                                <stop offset="0%" style="stop-color:#FFDDE1" />
-                                <stop offset="100%" style="stop-color:#EE9CA7" />
-                            </radialGradient>
-                            <filter id="glow-gemini">
-                                <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
-                                <feMerge>
-                                    <feMergeNode in="coloredBlur"/>
-                                    <feMergeNode in="SourceGraphic"/>
-                                </feMerge>
-                            </filter>
-                        </defs>
-                        <g filter="url(#glow-gemini)">
-                           <path fill="url(#gemini-grad)" d="M50 5 L61.2 35.8 L95 38.8 L69.5 60.2 L77.6 91 L50 72.5 L22.4 91 L30.5 60.2 L5 38.8 L38.8 35.8Z" />
-                           <path fill="white" d="M50 25 L55.6 42.9 L75 44.4 L58.7 56.1 L63.8 74 L50 63.2 L36.2 74 L41.3 56.1 L25 44.4 L44.4 42.9Z" />
-                        </g>
-                    </svg>
-                </div>
-                <span class="font-medium opacity-70 group-hover:opacity-100 transition-opacity">Gemini</span>
-            </a>
-
-            <!-- AI Studio Shortcut -->
-            <a href="https://aistudio.google.com/" class="group flex flex-col items-center gap-3 transition-transform duration-300 ease-out hover:scale-110">
-                <div class="w-20 h-20 flex items-center justify-center transition-all duration-300 ease-out group-hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
-                    <!-- High-Coloring AI Studio SVG -->
-                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <linearGradient id="studio-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-                                <stop offset="0%" style="stop-color:#84fab0" />
-                                <stop offset="100%" style="stop-color:#8fd3f4" />
-                            </linearGradient>
-                            <filter id="glow-studio">
-                                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-                                <feMerge>
-                                    <feMergeNode in="coloredBlur"/>
-                                    <feMergeNode in="SourceGraphic"/>
-                                </feMerge>
-                            </feMerge>
-                        </defs>
-                        <g filter="url(#glow-studio)">
-                            <path d="M35,20 L15,50 L35,80" stroke="url(#studio-grad)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-                            <path d="M65,20 L85,50 L65,80" stroke="url(#studio-grad)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-                        </g>
-                    </svg>
-                </div>
-                <span class="font-medium opacity-70 group-hover:opacity-100 transition-opacity">AI Studio</span>
-            </a>
+        <!-- Optional area: quote / notes -->
+        <div style="margin-top:12px" class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <strong>Quote hari ini</strong>
+              <div style="color:var(--muted);margin-top:8px" id="daily-quote">Loading quote...</div>
+            </div>
+            <div style="text-align:right;color:var(--muted);font-size:13px">Cute • Classy • Spoiled</div>
+          </div>
         </div>
-    </main>
 
-    <script>
-        // Function to update time and date
-        function updateTime() {
-            const now = new Date();
-            const timeEl = document.getElementById('time');
-            const dateEl = document.getElementById('date');
+      </main>
 
-            // Format time (HH:MM)
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            timeEl.textContent = `${hours}:${minutes}`;
+      <aside class="side">
+        <div class="widget card" aria-labelledby="widgets-title">
+          <h4 id="widgets-title">Ringkasan Cepat</h4>
+          <div style="display:flex;gap:10px;align-items:center">
+            <div style="flex:1">
+              <div style="font-weight:700;font-size:18px" id="weather-temp">--°C</div>
+              <div style="color:var(--muted)" id="weather-desc">Cuaca</div>
+            </div>
+            <div aria-hidden="true">
+              <!-- weather cute svg -->
+              <svg viewBox="0 0 48 48" width="56" height="56">
+                <defs>
+                  <linearGradient id="w1" x1="0" x2="1"><stop offset="0" stop-color="#ffd6e8"/><stop offset="1" stop-color="#e6f4ff"/></linearGradient>
+                  <filter id="g2"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                </defs>
+                <g filter="url(#g2)">
+                  <circle cx="22" cy="20" r="10" fill="url(#w1)"/>
+                </g>
+                <path d="M10 34h28a6 6 0 0 0 0-12h-2" fill="#fff" opacity="0.95"/>
+              </svg>
+            </div>
+          </div>
+        </div>
 
-            // Format date
-            const options = { weekday: 'long', day: 'numeric', month: 'long' };
-            dateEl.textContent = now.toLocaleDateString('id-ID', options);
-        }
+        <div class="widget card">
+          <h4>Todo singkat</h4>
+          <div id="todo-list" style="margin-top:8px"></div>
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <input id="todo-input" type="text" placeholder="Tambah todo" style="flex:1;padding:8px;border-radius:8px;border:1px solid #eaeef7"/>
+            <button id="todo-add" class="btn primary">+</button>
+          </div>
+        </div>
 
-        // Update the time every second
-        setInterval(updateTime, 1000);
+        <div class="widget card">
+          <h4>Pengaturan cepat</h4>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
+            <label><input id="toggle-flare" type="checkbox" checked /> High-colour svg flare</label>
+            <label><input id="toggle-classic" type="checkbox" /> Minimal glass mode</label>
+            <label><input id="toggle-power" type="checkbox" /> Power dashboard features</label>
+          </div>
+        </div>
 
-        // Initial call to display time immediately
-        updateTime();
-        
-        // Focus on search input on load
-        document.getElementById('search-input').focus();
-    </script>
+      </aside>
+    </div>
+
+    <footer>
+      Built for Chrome New Tab — BetterHome © 2025 void-rizqiagung
+    </footer>
+  </div>
+
+  <script src="index.js"></script>
 </body>
 </html>
