@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="BetterHome - Landing page sederhana untuk proyek BetterHome" />
+  <title>BetterHome</title>
+  <link rel="icon" href="/favicon.ico" />
+  <style>
+    /* Reset sederhana */
+    :root{--bg:#f7f8fb;--card:#ffffff;--muted:#6b7280;--accent:#2563eb}
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;line-height:1.5;background:var(--bg);color:#0f172a}
+    .container{max-width:1100px;margin:40px auto;padding:24px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:48px;height:48px;background:linear-gradient(135deg,#60a5fa,#7c3aed);border-radius:10px;display:flex;align-items:center;justify-content:center;color:white;font-weight:700}
+    nav a{margin-left:16px;color:var(--muted);text-decoration:none}
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:32px;margin-top:36px;align-items:center}
+    .card{background:var(--card);border-radius:12px;padding:20px;box-shadow:0 6px 18px rgba(15,23,42,0.06)}
+    h1{font-size:2rem;margin:0 0 12px}
+    p.lead{color:var(--muted);margin:0 0 18px}
+    .cta{display:inline-block;background:var(--accent);color:white;padding:10px 16px;border-radius:8px;text-decoration:none}
+    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+    .feature{padding:16px;border-radius:8px;background:linear-gradient(180deg,#fff,#fbfdff);border:1px solid rgba(15,23,42,0.03)}
+    footer{margin-top:40px;text-align:center;color:var(--muted);font-size:0.9rem}
+    @media (max-width:900px){.hero{grid-template-columns:1fr}.features{grid-template-columns:1fr 1fr}}
+    @media (max-width:560px){.features{grid-template-columns:1fr}
+      header{flex-direction:column;align-items:flex-start}
+      nav a{margin-left:0;margin-right:12px}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">BH</div>
+        <div>
+          <div style="font-weight:700">BetterHome</div>
+          <div style="font-size:0.85rem;color:var(--muted)">Landing page sederhana</div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="#features">Fitur</a>
+        <a href="#about">Tentang</a>
+        <a href="#contact">Kontak</a>
+      </nav>
+    </header>
+
+    <main class="hero">
+      <section>
+        <div class="card">
+          <h1>Solusi rumah yang lebih baik — BetterHome</h1>
+          <p class="lead">Template landing page ringan dan responsif untuk menampilkan produk, layanan, atau portofolio proyek BetterHome. Mudah dikustomisasi dan cepat dimuat.</p>
+          <a class="cta" href="#contact">Hubungi Kami</a>
+
+          <div class="features" id="features" style="margin-top:20px">
+            <div class="feature">
+              <strong>Ringan & Cepat</strong>
+              <div style="color:var(--muted);margin-top:8px">Dibuat dengan HTML/CSS sederhana supaya performa maksimal.</div>
+            </div>
+            <div class="feature">
+              <strong>Responsif</strong>
+              <div style="color:var(--muted);margin-top:8px">Tampilan optimal di desktop, tablet, dan ponsel.</div>
+            </div>
+            <div class="feature">
+              <strong>Mudah Disesuaikan</strong>
+              <div style="color:var(--muted);margin-top:8px">Struktur kode jelas sehingga gampang dimodifikasi.</div>
+            </div>
+          </div>
+        </div>
+
+        <section id="about" style="margin-top:20px">
+          <div class="card" style="margin-top:12px">
+            <h2 style="margin:0 0 8px">Tentang BetterHome</h2>
+            <p style="margin:0;color:var(--muted)">BetterHome adalah contoh landing page yang dirancang untuk membantu Anda mempresentasikan ide properti, jasa renovasi, atau solusi perumahan lainnya. Struktur ini mendukung perluasan menjadi aplikasi statis atau integrasi dengan framework modern.</p>
+          </div>
+        </section>
+      </section>
+
+      <aside>
+        <div class="card">
+          <h3 style="margin-top:0">Dapatkan Penawaran</h3>
+          <form id="contact" action="#" onsubmit="handleSubmit(event)">
+            <label for="name" style="display:block;margin-bottom:6px">Nama</label>
+            <input id="name" name="name" required type="text" style="width:100%;padding:8px;border-radius:6px;border:1px solid #e6e9ef;margin-bottom:10px" />
+            <label for="email" style="display:block;margin-bottom:6px">Email</label>
+            <input id="email" name="email" required type="email" style="width:100%;padding:8px;border-radius:6px;border:1px solid #e6e9ef;margin-bottom:10px" />
+            <button type="submit" class="cta" style="width:100%">Kirim</button>
+            <div id="msg" style="margin-top:10px;color:green;display:none"></div>
+          </form>
+        </div>
+
+        <div style="height:16px"></div>
+
+        <div class="card" style="text-align:center">
+          <strong>Kontak Cepat</strong>
+          <div style="color:var(--muted);margin-top:8px">hello@betterhome.example</div>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      <div>© 2025 BetterHome — dibuat oleh void-rizqiagung</div>
+    </footer>
+  </div>
+
+  <script>
+    // Handler form sederhana — ganti dengan integrasi backend / layanan form sesuai kebutuhan
+    function handleSubmit(e){
+      e.preventDefault();
+      var name = document.getElementById('name').value.trim();
+      var email = document.getElementById('email').value.trim();
+      var msg = document.getElementById('msg');
+      if(!name||!email){
+        msg.style.display='block';msg.style.color='crimson';msg.textContent='Mohon isi nama dan email.';return;
+      }
+      // Simulasi pengiriman
+      msg.style.display='block';msg.style.color='green';msg.textContent='Terima kasih, pesan Anda telah dikirim (simulasi).';
+      // reset form setelah 2 detik
+      setTimeout(function(){document.getElementById('contact').reset();},2000);
+    }
+  </script>
+</body>
+</html>
